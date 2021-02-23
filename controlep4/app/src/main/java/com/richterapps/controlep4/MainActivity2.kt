@@ -46,7 +46,7 @@ class MainActivity2 : AppCompatActivity() {
         postoGrad = "Sd PM"
         reMike = "170534-2"
 
-        carregaPDF()
+        //carregaPDF()
         webview=findViewById<WebView>(R.id.webview)
         webview?.settings
         val header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
@@ -58,7 +58,7 @@ class MainActivity2 : AppCompatActivity() {
     }
 
 
-    fun carregaPDF(){
+    /*fun carregaPDF(){
         html= "<html>\n" +
                 "  <head>\n" +
                 "      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n" +
@@ -755,5 +755,5 @@ class MainActivity2 : AppCompatActivity() {
                 "    </table>\n" +
                 "  </body>\n" +
                 "</html>\n"
-    }
+    }*/
 }
