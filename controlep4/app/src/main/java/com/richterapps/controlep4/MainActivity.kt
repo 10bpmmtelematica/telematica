@@ -298,7 +298,7 @@ class MainActivity : AppCompatActivity() {
             progressBar!!.visibility = View.GONE
             //var result = JSONObject(s)
             try {
-                var ss:String = URLEncoder.encode("áàâãõóòúç", "utf-8")
+                //var ss:String = URLEncoder.encode("áàâãõóòúç", "utf-8")
 
                 val `object` = JSONObject(s!!)
                 //Toast.makeText(applicationContext, "$s", Toast.LENGTH_SHORT).show()
