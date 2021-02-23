@@ -51,7 +51,7 @@ class MainActivity2 : AppCompatActivity() {
         webview?.settings
         val header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
         webview?.loadData(header + html, "text/html", "UTF-8")
-        webview?.setWebViewClient(WebViewClient())
+        //webview?.setWebViewClient(WebViewClient())
 
 
 
