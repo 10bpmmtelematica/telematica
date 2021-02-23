@@ -17,6 +17,7 @@ import com.google.zxing.integration.android.IntentResult
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.net.URLEncoder
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -120,6 +121,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun scanUpdate(codigo:String){
         val request = PerformNetworkRequest(Api.URL_BUSCA_MATERIAL + codigo, null, CODE_GET_REQUEST)
+        //Toast.makeText(applicationContext, "$codigo", Toast.LENGTH_SHORT).show()
         request.execute()
     }
 
@@ -230,7 +232,7 @@ class MainActivity : AppCompatActivity() {
     private fun refreshHero(heroes: JSONArray) {
         //materialList!!.clear()
         //var obj=heroes.getJSONObject(0).getString("codigo")
-        //Toast.makeText(this, " $obj", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, " $heroes", Toast.LENGTH_SHORT).show()
 
 
 
@@ -259,7 +261,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        for (i in 0 until obj.length()) {
+        for (i in 0..obj.length()) {
             val recipe = obj.getJSONObject(i)
             listitemDesc[i] = recipe.getString("descricao")
             listitemId[i] = recipe.getString("id")
@@ -270,7 +272,7 @@ class MainActivity : AppCompatActivity() {
             listitemIdQtd[i] = recipe.getString("qtd")
 
             if(listitemCod[i]==busca){
-                //Toast.makeText(this, " $i", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, " $i", Toast.LENGTH_SHORT).show()
                 isUpdating = true
                 editTextMatId!!.setText(listitemId[i])
                 editTextCodigo!!.setText(listitemCod[i]!!)
@@ -296,22 +298,23 @@ class MainActivity : AppCompatActivity() {
             progressBar!!.visibility = View.GONE
             //var result = JSONObject(s)
             try {
-                val `object` = JSONObject(s!!)
+                var ss:String = URLEncoder.encode("áàâãõóòúç", "utf-8")
 
+                val `object` = JSONObject(s!!)
+                //Toast.makeText(applicationContext, "$s", Toast.LENGTH_SHORT).show()
                 //refreshHeroList(`object`.getJSONArray("materiais"))
                 //var array =`object`.getJSONArray("").toString()
                 if (`object`.getBoolean("error")) {
-                    //Toast.makeText(applicationContext, `object`.getString("message"), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, `object`.getString("message"), Toast.LENGTH_SHORT).show()
                     //Toast.makeText(applicationContext, "OK"+`object`.optString("materiais"), Toast.LENGTH_SHORT).show()
                     //refreshHeroList(`object`.getJSONArray("materiais"))
-
-
-
                     //Toast.makeText(applicationContext, " Array : $array", Toast.LENGTH_SHORT).show()
+                    refreshHero(`object`.getJSONArray("materiais"))
                 }
                 //Toast.makeText(applicationContext, "OK"+`object`.getJSONArray("materiais"), Toast.LENGTH_LONG).show()
                 //refreshHeroList(`object`.getJSONArray("materiais"))
                 refreshHero(`object`.getJSONArray("materiais"))
+                //Toast.makeText(applicationContext, "$s", Toast.LENGTH_SHORT).show()
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -319,7 +322,11 @@ class MainActivity : AppCompatActivity() {
 
         override fun doInBackground(vararg params2: Void?): String? {
             val requestHandler = RequestHandler()
-            if (requestCode == CODE_POST_REQUEST) return requestHandler.sendPostRequest(url, params!!)
+            if (requestCode == CODE_POST_REQUEST) return params?.let {
+                requestHandler.sendPostRequest(url,
+                    it
+                )
+            }
             return if (requestCode == CODE_GET_REQUEST) requestHandler.sendGetRequest(url) else null
         }
     }
@@ -384,8 +391,7 @@ class MainActivity : AppCompatActivity() {
                 if (result.contents == null) {
                     Toast.makeText(this, "Cancelled", Toast.LENGTH_LONG).show()
                 } else {
-                    Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG)
-                        .show()
+                    //Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG).show()
                     editTextCodigo!!.setText(result.contents)
                     scanUpdate(editTextCodigo?.text.toString())
                     busca = editTextCodigo?.text.toString()
