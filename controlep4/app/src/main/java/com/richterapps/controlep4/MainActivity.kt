@@ -31,10 +31,10 @@ class MainActivity : AppCompatActivity() {
     var progressBar: ProgressBar? = null
     var listView: ListView? = null
     var buttonAddUpdate: Button? = null
-    var heroList: ArrayList<Hero>? = null
+    var materialList: ArrayList<Material>? = null
     var isUpdating = false
     var btnScan:Button?=null
-    var materialUp : Hero? = null
+    var materialUp : Material? = null
     var busca:String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         btnScan = findViewById<View>(R.id.btnScan) as Button
         progressBar = findViewById<View>(R.id.progressBar) as ProgressBar
         listView = findViewById<View>(R.id.listViewMat) as ListView
-        heroList = ArrayList()
+        materialList = ArrayList()
         buttonAddUpdate!!.setOnClickListener {
             /*if (isUpdating) {
                 //updateHero()
@@ -107,19 +107,19 @@ class MainActivity : AppCompatActivity() {
         params.put("descricao", descricao)
         params.put("qtd", qtd)
         params.put("data", data)
-        val request = PerformNetworkRequest(Api.URL_CREATE_HERO, params, CODE_POST_REQUEST)
+        val request = PerformNetworkRequest(Api.URL_CREATE_MATERIAL, params, CODE_POST_REQUEST)
         request.execute()
         //Toast.makeText(applicationContext, Api.URL_CREATE_HERO+"$params, $CODE_POST_REQUEST", Toast.LENGTH_LONG).show()
     }
 
     private fun readHeroes() {
-        val request = PerformNetworkRequest(Api.URL_READ_HEROES, null, CODE_GET_REQUEST)
+        val request = PerformNetworkRequest(Api.URL_READ_MATERIAL, null, CODE_GET_REQUEST)
         request.execute()
         //Toast.makeText(applicationContext, Api.URL_READ_HEROES, Toast.LENGTH_LONG).show()
     }
 
     private fun scanUpdate(codigo:String){
-        val request = PerformNetworkRequest(Api.URL_BUSCA_HERO + codigo, null, CODE_GET_REQUEST)
+        val request = PerformNetworkRequest(Api.URL_BUSCA_MATERIAL + codigo, null, CODE_GET_REQUEST)
         request.execute()
     }
 
@@ -152,7 +152,7 @@ class MainActivity : AppCompatActivity() {
         params["descricao"] = descricao
         params["qtd"] = qtd
         params["data"] = data
-        val request = PerformNetworkRequest(Api.URL_UPDATE_HERO, params, CODE_POST_REQUEST)
+        val request = PerformNetworkRequest(Api.URL_UPDATE_MATERIAL, params, CODE_POST_REQUEST)
         request.execute()
         buttonAddUpdate!!.text = "Add"
         editTextCodigo!!.setText("")
@@ -162,13 +162,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteHero(id: Int) {
-        val request = PerformNetworkRequest(Api.URL_DELETE_HERO + id, null, CODE_GET_REQUEST)
+        val request = PerformNetworkRequest(Api.URL_DELETE_MATERIAL + id, null, CODE_GET_REQUEST)
         request.execute()
     }
 
 
     private fun refreshHeroList(heroes: JSONArray) {
-        //heroList!!.clear()
+        //materialList!!.clear()
         var obj=heroes
         var listitemDesc = arrayOfNulls <String> (obj.length())
         var listitemId = arrayOfNulls <String> (obj.length())
@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         /*for (i in 0..heroes.length()) {
             var obj2 = obj.get(i)
             listitem[i] = obj2.toString()
-            *//*heroList!!.add(Hero(
+            *//*materialList!!.add(Material(
                     obj2.getInt("id"),
                     obj2.getString("codigo"),
                     obj2.getString("tipo"),
@@ -204,7 +204,7 @@ class MainActivity : AppCompatActivity() {
             listitemIdQtd[i] = recipe.getString("qtd")
         }
 
-        val adapter = ArrayAdapter ( this , android.R.layout.simple_list_item_1, listitemDesc)//HeroAdapter(heroList!!)//heroList!!)
+        val adapter = ArrayAdapter ( this , android.R.layout.simple_list_item_1, listitemDesc)//HeroAdapter(materialList!!)//materialList!!)
         listView!!.adapter = adapter
 
         listView!!.setOnItemClickListener(AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -228,13 +228,13 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun refreshHero(heroes: JSONArray) {
-        //heroList!!.clear()
+        //materialList!!.clear()
         //var obj=heroes.getJSONObject(0).getString("codigo")
         //Toast.makeText(this, " $obj", Toast.LENGTH_SHORT).show()
 
 
 
-        //heroList!!.clear()
+        //materialList!!.clear()
         var obj=heroes
         var listitemDesc = arrayOfNulls <String> (obj.length())
         var listitemId = arrayOfNulls <String> (obj.length())
@@ -246,7 +246,7 @@ class MainActivity : AppCompatActivity() {
         /*for (i in 0..heroes.length()) {
             var obj2 = obj.get(i)
             listitem[i] = obj2.toString()
-            *//*heroList!!.add(Hero(
+            *//*materialList!!.add(Material(
                     obj2.getInt("id"),
                     obj2.getString("codigo"),
                     obj2.getString("tipo"),
@@ -324,13 +324,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    internal inner class HeroAdapter(var heroList: ArrayList<Hero>?) : BaseAdapter() {
+    internal inner class HeroAdapter(var materialList: ArrayList<Material>?) : BaseAdapter() {
         override fun getCount(): Int {
-            return heroList!!.size
+            return materialList!!.size
         }
 
         override fun getItem(position: Int): Any {
-            return heroList!![position]
+            return materialList!![position]
         }
 
         override fun getItemId(position: Int): Long {
@@ -343,8 +343,8 @@ class MainActivity : AppCompatActivity() {
             val textViewName = listViewItem.findViewById<TextView>(R.id.textViewName)
             val textViewUpdate = listViewItem.findViewById<TextView>(R.id.textViewUpdate)
             val textViewDelete = listViewItem.findViewById<TextView>(R.id.textViewDelete)
-            val material = getItem(position) as Hero
-            //val material = heroList?.get(position)
+            val material = getItem(position) as Material
+            //val material = materialList?.get(position)
 
             textViewName.text = material?.descricao
             textViewUpdate.setOnClickListener {

@@ -1,6 +1,6 @@
 package com.richterapps.controlep4
 
-class Hero(
+class Material(
         val id: Int,
         val codigo: String,
         val tipo: String,
