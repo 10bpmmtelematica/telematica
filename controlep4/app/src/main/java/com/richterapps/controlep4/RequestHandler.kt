@@ -1,5 +1,7 @@
 package com.richterapps.controlep4
 
+import android.content.Context
+import android.widget.Toast
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
@@ -69,9 +71,13 @@ class RequestHandler {
             var s: String
             while (bufferedReader.readLine().also { s = it } != null) {
                 sb.append(s+"\n")
+                //sb.append(URLEncoder.encode("áàâãõóòúç", "UTF-8"))
+                //println("------------------$s")
             }
         } catch (e: Exception) {
+            //println("------------------$e")
         }
+        //println("------------------${sb.toString()}")
         return sb.toString()
     }
 
@@ -80,13 +86,13 @@ class RequestHandler {
         val result = StringBuilder()
         var first = true
         for ((key, value) in params) {
-            //if (first){ first = false }
-            //else{
+            if (first){ first = false }
+            else{
                 result.append("&")
-            result.append(URLEncoder.encode(key, "UTF-8"))
-            result.append("=")
-            result.append(URLEncoder.encode(value, "UTF-8"))}
-        //}
+                result.append(URLEncoder.encode(key, "UTF-8"))
+                result.append("=")
+                result.append(URLEncoder.encode(value, "UTF-8"))}
+            }
         return result.toString()
     }
 }

@@ -52,11 +52,12 @@ class MainActivity : AppCompatActivity() {
         progressBar = findViewById<View>(R.id.progressBar) as ProgressBar
         listView = findViewById<View>(R.id.listViewMat) as ListView
         materialList = ArrayList()
+        buttonAddUpdate!!.visibility = View.INVISIBLE
         buttonAddUpdate!!.setOnClickListener {
-            /*if (isUpdating) {
+            if (isUpdating) {
                 //updateHero()
             } else {
-                createHero()
+                //createHero()
             }
 
             editTextMatId!!.setText("")
@@ -66,8 +67,9 @@ class MainActivity : AppCompatActivity() {
             editTextDescricao!!.setText("")
             edtQtd!!.setText("")
             editTextData!!.setText("")
-            buttonAddUpdate!!.text = "Add"
-*/
+            buttonAddUpdate!!.text = "Voltar"
+            buttonAddUpdate!!.visibility = View.INVISIBLE
+
 
 
         }
@@ -80,7 +82,7 @@ class MainActivity : AppCompatActivity() {
             scanner.initiateScan() // `this` is the current Activity
             //scanner.
         }
-        readHeroes()
+        //readHeroes()
     }
 
     private fun createHero() {
@@ -232,12 +234,13 @@ class MainActivity : AppCompatActivity() {
     private fun refreshHero(heroes: JSONArray) {
         //materialList!!.clear()
         //var obj=heroes.getJSONObject(0).getString("codigo")
-        Toast.makeText(this, " $heroes", Toast.LENGTH_SHORT).show()
+        //Toast.makeText(this, " $heroes", Toast.LENGTH_SHORT).show()
 
 
 
         //materialList!!.clear()
         var obj=heroes
+        println("------------------$heroes")
         var listitemDesc = arrayOfNulls <String> (obj.length())
         var listitemId = arrayOfNulls <String> (obj.length())
         var listitemCod = arrayOfNulls <String> (obj.length())
@@ -274,6 +277,7 @@ class MainActivity : AppCompatActivity() {
             if(listitemCod[i]==busca){
                 Toast.makeText(this, " $i", Toast.LENGTH_SHORT).show()
                 isUpdating = true
+                buttonAddUpdate!!.visibility = View.VISIBLE
                 editTextMatId!!.setText(listitemId[i])
                 editTextCodigo!!.setText(listitemCod[i]!!)
                 editTextTipo!!.setText(listitemTip[i]!!)
@@ -281,7 +285,7 @@ class MainActivity : AppCompatActivity() {
                 editTextDescricao!!.setText(listitemDesc[i]!!)
                 edtQtd!!.setText(listitemIdQtd[i]!!)
                 editTextData!!.setText(listitemData[i]!!)
-                buttonAddUpdate!!.text = "Update"
+                buttonAddUpdate!!.text = "Enviar Recibo"
             }
 
         }
@@ -294,29 +298,21 @@ class MainActivity : AppCompatActivity() {
         }
 
         override fun onPostExecute(s: String?) {
-            super.onPostExecute(s!!)
+            super.onPostExecute(s)
             progressBar!!.visibility = View.GONE
-            //var result = JSONObject(s)
+            //val result = JSONObject(s!!)
+            println("------------------$s")
             try {
-                //var ss:String = URLEncoder.encode("áàâãõóòúç", "utf-8")
-
-                val `object` = JSONObject(s!!)
-                //Toast.makeText(applicationContext, "$s", Toast.LENGTH_SHORT).show()
-                //refreshHeroList(`object`.getJSONArray("materiais"))
-                //var array =`object`.getJSONArray("").toString()
+                val `object` = JSONObject(s)
                 if (`object`.getBoolean("error")) {
                     Toast.makeText(applicationContext, `object`.getString("message"), Toast.LENGTH_SHORT).show()
-                    //Toast.makeText(applicationContext, "OK"+`object`.optString("materiais"), Toast.LENGTH_SHORT).show()
-                    //refreshHeroList(`object`.getJSONArray("materiais"))
-                    //Toast.makeText(applicationContext, " Array : $array", Toast.LENGTH_SHORT).show()
                     refreshHero(`object`.getJSONArray("materiais"))
                 }
-                //Toast.makeText(applicationContext, "OK"+`object`.getJSONArray("materiais"), Toast.LENGTH_LONG).show()
-                //refreshHeroList(`object`.getJSONArray("materiais"))
                 refreshHero(`object`.getJSONArray("materiais"))
-                //Toast.makeText(applicationContext, "$s", Toast.LENGTH_SHORT).show()
             } catch (e: JSONException) {
                 e.printStackTrace()
+                Toast.makeText(applicationContext, "$e", Toast.LENGTH_SHORT).show()
+                println("------------------$e")
             }
         }
 
@@ -395,6 +391,8 @@ class MainActivity : AppCompatActivity() {
                     editTextCodigo!!.setText(result.contents)
                     scanUpdate(editTextCodigo?.text.toString())
                     busca = editTextCodigo?.text.toString()
+                    buttonAddUpdate!!.text = "Enviar Recibo"
+                    buttonAddUpdate!!.visibility = View.VISIBLE
                 }
             } else {
                 super.onActivityResult(requestCode, resultCode, data)

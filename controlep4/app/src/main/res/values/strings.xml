@@ -1,9 +1,29 @@
 <resources>
-    <string name="app_name">MyHeroApp</string>
+    <string name="app_name">Controle de Materiais de Consumo</string>
 
-    <array name="teams">
-        <item>Avengers</item>
-        <item>X Men</item>
-        <item>Justice League</item>
-    </array>
+    <string-array name="posto">
+        <item>Posto/Grad.</item>
+        <item>Cel PM</item>
+        <item>Ten Cel PM</item>
+        <item>Maj PM</item>
+        <item>Cap PM</item>
+        <item>1ºTen PM</item>
+        <item>2ºTen PM</item>
+        <item>Asp Of PM</item>
+        <item>SubTen PM</item>
+        <item>1ºSgt PM</item>
+        <item>2ºSgt PM</item>
+        <item>3ºSgt PM</item>
+        <item>Cb PM</item>
+        <item>Sd PM</item>
+    </string-array>
+    <string name="title_activity_main2">MainActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
 </resources>
