@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:divider="?attr/dividerHorizontal"
+    android:dividerPadding="1dp"
+    android:orientation="horizontal"
+    android:padding="5dp">
+
+
+    <TextView
+        android:id="@+id/textViewTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Escritorio"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textViewSubtipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Caneta"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textViewDescricao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="Caneta Bic Preta Cx c/ 50un"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textViewQtd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:text="100"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textSize="14sp" />
+
+
+</LinearLayout>
