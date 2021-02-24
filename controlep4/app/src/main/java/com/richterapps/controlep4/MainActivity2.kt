@@ -1,3 +1,5 @@
+@file:Suppress("Annotator", "Annotator")
+
 package com.richterapps.controlep4
 
 import android.content.Intent
@@ -9,7 +11,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity2 : AppCompatActivity() {
 
-    var html:String?=null
+    var html:String?=""
     var numeroRecibo:String?=null
     var destino:String?=null
     var qtd:String?=null
@@ -45,8 +47,8 @@ class MainActivity2 : AppCompatActivity() {
         nomeGuerra = "Richter"
         postoGrad = "Sd PM"
         reMike = "170534-2"
-
-        //carregaPDF()
+        html = "<html><h1>ola mundo</h1></html>"
+        carregaPDF()
         webview=findViewById<WebView>(R.id.webview)
         webview?.settings
         val header = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>"
@@ -58,7 +60,7 @@ class MainActivity2 : AppCompatActivity() {
     }
 
 
-    /*fun carregaPDF(){
+    fun carregaPDF(){
         html= "<html>\n" +
                 "  <head>\n" +
                 "      <meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\">\n" +
@@ -755,5 +757,5 @@ class MainActivity2 : AppCompatActivity() {
                 "    </table>\n" +
                 "  </body>\n" +
                 "</html>\n"
-    }*/
+    }
 }
